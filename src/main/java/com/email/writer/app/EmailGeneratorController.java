@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/api/email")
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class EmailGeneratorController {
     @PostMapping("/generate")
     public ResponseEntity<String> generateEmail(@RequestBody EmailRequest emailRequest) {
         String response = emailGeneratorService.generateEmailReply(emailRequest);
-        return ResponseEntity.ok("response");
+        return ResponseEntity.ok(response);
 
     }
 }
