@@ -101,6 +101,10 @@ function createToneSelector() {
 function injectButton() {
   const existingButton = document.querySelector(".extension-reply-button");
   if (existingButton) existingButton.remove();
+  
+  const existingToneSelector = document.querySelector(".tone-selector-container");
+  if (existingToneSelector) existingToneSelector.remove();
+  
   const toolbar = findComposeToolBar();
 
   if (!toolbar) {
@@ -110,6 +114,7 @@ function injectButton() {
   console.log("Toolbar found, creating Extension button");
   const button = createExtensionButton();
   const toneSelector = createToneSelector();
+  toneSelector.classList.add("tone-selector-container");
   button.classList.add("extension-reply-button");
   button.addEventListener("click", async () => {
     try {
@@ -117,7 +122,7 @@ function injectButton() {
       button.disabled = true;
 
       const emailContent = getEmailContent();
-      const response = await fetch("http://localhost:8080/api/email/generate", {
+      const response = await fetch("https://email-writer-sb-latest-1ox0.onrender.com/api/email/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
