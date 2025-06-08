@@ -32,6 +32,72 @@ function createExtensionButton() {
   return button;
 }
 
+function createToneSelector() {
+  const container = document.createElement("div");
+  container.className = "T-I J-J5-Ji aoO v7 T-I-atl L3";
+  container.style.marginRight = "8px";
+  container.style.position = "relative";
+  container.style.display = "inline-block";
+
+  const button = document.createElement("div");
+  button.className = "T-I J-J5-Ji aoO v7 T-I-atl L3";
+  button.innerHTML = "Select Tone ▼";
+  button.setAttribute("role", "button");
+  button.setAttribute("data-tooltip", "Select email tone");
+  button.style.cursor = "pointer";
+  button.style.width = "max-content";
+  button.style.maxWidth = "180px";
+
+  const dropdown = document.createElement("div");
+  dropdown.className = "tone-dropdown";
+  dropdown.style.display = "none";
+  dropdown.style.position = "absolute";
+  dropdown.style.backgroundColor = "#fff";
+  dropdown.style.boxShadow = "0 2px 5px rgba(0,0,0,0.2)";
+  dropdown.style.borderRadius = "4px";
+  dropdown.style.zIndex = "1000";
+  dropdown.style.minWidth = "max-content";
+  dropdown.style.maxWidth = "200px";
+
+  const tones = ["Professional", "Friendly", "Casual"];
+  tones.forEach(tone => {
+    const option = document.createElement("div");
+    option.className = "tone-option";
+    option.innerHTML = tone;
+    option.style.padding = "8px 12px";
+    option.style.cursor = "pointer";
+    option.style.borderBottom = "1px solid #eee";
+    option.style.color = "black";
+    option.addEventListener("mouseover", () => {
+      option.style.backgroundColor = "#f5f5f5";
+    });
+    option.addEventListener("mouseout", () => {
+      option.style.backgroundColor = "#fff";
+    });
+    option.addEventListener("click", () => {
+      button.innerHTML = `${tone} ▼`;
+      dropdown.style.display = "none";
+      window.selectedTone = tone.toLowerCase();
+    });
+    dropdown.appendChild(option);
+  });
+
+  button.addEventListener("click", () => {
+    dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!container.contains(e.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  container.appendChild(button);
+  container.appendChild(dropdown);
+  return container;
+}
+
 function injectButton() {
   const existingButton = document.querySelector(".extension-reply-button");
   if (existingButton) existingButton.remove();
@@ -43,7 +109,8 @@ function injectButton() {
   }
   console.log("Toolbar found, creating Extension button");
   const button = createExtensionButton();
-  button.classList.add(".extension-reply-button");
+  const toneSelector = createToneSelector();
+  button.classList.add("extension-reply-button");
   button.addEventListener("click", async () => {
     try {
       button.innerHTML = "Generating...";
@@ -57,7 +124,7 @@ function injectButton() {
         },
         body: JSON.stringify({
           emailContent: emailContent,
-          tone: "professional",
+          tone: window.selectedTone || "professional",
         }),
       });
       if (!response.ok) {
@@ -82,6 +149,7 @@ function injectButton() {
     }
   });
 
+  toolbar.insertBefore(toneSelector, toolbar.firstChild);
   toolbar.insertBefore(button, toolbar.firstChild);
 }
 
