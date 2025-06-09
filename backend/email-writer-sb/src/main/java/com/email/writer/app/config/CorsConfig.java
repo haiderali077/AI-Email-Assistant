@@ -17,11 +17,17 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(frontendUrl)
+                        .allowedOrigins(
+                            frontendUrl,
+                            "http://localhost:5173",
+                            "http://127.0.0.1:5173",
+                            "https://mail.google.com",
+                            "https://*.google.com"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
             }
         };
     }
-} 
+}

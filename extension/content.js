@@ -126,14 +126,18 @@ function injectButton() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Origin": "https://mail.google.com"
         },
+        mode: "cors",
+        credentials: "include",
         body: JSON.stringify({
           emailContent: emailContent,
           tone: window.selectedTone || "professional",
         }),
       });
       if (!response.ok) {
-        throw new Error("API request Failed");
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
       }
       const generatedReply = await response.text();
       const composeBox = document.querySelector(
@@ -146,8 +150,8 @@ function injectButton() {
         console.error("ComposeBox was not found");
       }
     } catch (error) {
-      console.log(error);
-      alert("Failed to generate the reply");
+      console.error("Error generating reply:", error);
+      alert(`Failed to generate the reply: ${error.message}`);
     } finally {
       button.innerHTML = "AI Reply";
       button.disabled = false;
