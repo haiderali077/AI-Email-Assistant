@@ -71,7 +71,7 @@ The project helps users quickly craft context-aware email responses while provid
 
 ### Chrome Extension in Gmail
 
-![Gmail Integration](/screenshots/extension.png)
+![Gmail Integration](/images/email-extension-demo.jpg)
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "name": "Email Writing Assitant",
+  "name": "Email Reply Assistant",
   "description": "Gemini power email reply generator",
   "version": "1.0",
   "manifest_version": 3,
@@ -19,8 +19,17 @@
       "matches": ["*://mail.google.com/*"]
     }
   ],
-
+  "icons": {
+    "16": "logo/icon.png",
+    "48": "logo/icon.png",
+    "128": "logo/icon.png"
+  },
   "action": {
-    "default_title": "Email Writing Assistant"
+    "default_title": "Email Reply Assistant",
+    "default_icon": {
+      "16": "logo/icon.png",
+      "48": "logo/icon.png",
+      "128": "logo/icon.png"
+    }
   }
 }
