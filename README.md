@@ -103,7 +103,7 @@ Get your Gemini API key from Google AI Studio
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-repo/ai-email-assistant.git
+git clone https://github.com/haiderali077/AI-Email-Assistant
 ```
 
 Create a `.env` file with the following:
@@ -127,7 +127,7 @@ Start the backend:
 2. Enable **Developer mode**
 3. Click **Load unpacked** and select `/extension` folder
 4. Pin extension in Chrome toolbar
-5. Open Gmail and click Compose. You’ll see the `AI Reply` and `Select Tone` buttons integrated directly into the email composer.
+5. Open Gmail and click Compose. You'll see the `AI Reply` and `Select Tone` buttons integrated directly into the email composer.
 
 ---
 
@@ -147,7 +147,13 @@ cd frontend
 npm install
 ```
 
-3. Start the development server:
+3. Create a `.env` file in the frontend directory with the following content:
+
+```env
+VITE_API_URL=http://localhost:8080
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
